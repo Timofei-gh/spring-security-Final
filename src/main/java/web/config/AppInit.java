@@ -26,12 +26,4 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         return new String[]{"/"};
     }
 
-    //Попытка добавить русскую локаль, но не добил. Пошел на след. задачу
-    @Override
-    protected Filter[] getServletFilters() {
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("UTF-8");
-        characterEncodingFilter.setForceEncoding(true);
-        return new Filter[] {characterEncodingFilter};
-    }
 }
