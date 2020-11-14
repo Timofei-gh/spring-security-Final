@@ -1,4 +1,4 @@
-package web.Model;
+package web.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +21,8 @@ public class User implements UserDetails {
    @Column(name = "name")
    private String firstName;
 
-   @Column(name = "last_name")
+   @Column(name = "last_Name")
    private String lastName;
-
-   @Column
-   private String email;
 
    @Column
    private String password;
@@ -50,7 +47,6 @@ public class User implements UserDetails {
    public User(String firstName, String lastName, String email, String password, Set<Role> roles) {
       this.firstName = firstName;
       this.lastName = lastName;
-      this.email = email;
       this.password = password;
       this.roles = roles;
    }
@@ -77,14 +73,6 @@ public class User implements UserDetails {
 
    public void setLastName(String lastName) {
       this.lastName = lastName;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public void setEmail(String email) {
-      this.email = email;
    }
 
    @Override
@@ -140,7 +128,6 @@ public class User implements UserDetails {
               "id=" + id +
               ", firstName='" + firstName + '\'' +
               ", lastName='" + lastName + '\'' +
-              ", email='" + email + '\'' +
               ", password='" + password + '\'' +
               ", roles=" + roles +
               '}';

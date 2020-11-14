@@ -8,23 +8,16 @@
 <form action="#" th:action="@{/admin/user-update}" th:object="${users}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
     <label for="firstName">First Name</label>
     <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+    <br/>
     <label for="lastName">Last Name</label>
     <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
-    <label for="email">E-mail</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E-Mail">
+    <br/>
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password" placeholder="Password">
-
-    <!--<select id="roles" required multiple>
-        <option th:each="s : ${uniqueRoles}"
-                th:value="${s}"
-                th:text="${s}"
-                th:selected="${userRoles.contains(s)}">
-        </option>
-    </select>-->
-
+    <br/>
     <label>
         <select multiple required size="2" th:name="roles" th:field="*{roles}">
             <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>

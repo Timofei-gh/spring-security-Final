@@ -3,10 +3,9 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.DAO.RoleDao;
-import web.Model.Role;
+import web.dao.RoleDao;
+import web.model.Role;
 
-import java.util.List;
 import java.util.Set;
 
 @Service

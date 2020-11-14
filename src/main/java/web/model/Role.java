@@ -1,4 +1,4 @@
-package web.Model;
+package web.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;

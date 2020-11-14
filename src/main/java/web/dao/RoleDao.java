@@ -1,6 +1,6 @@
-package web.DAO;
+package web.dao;
 
-import web.Model.Role;
+import web.model.Role;
 import java.util.Set;
 
 public interface RoleDao {
