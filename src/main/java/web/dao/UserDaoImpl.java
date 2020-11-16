@@ -1,8 +1,10 @@
 package web.dao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,13 +36,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
-        List<User> list;
-        list = entityManager.createQuery("from User").getResultList();
-        return list;
+        return entityManager.createQuery("from User").getResultList();
     }
 
-    @Override
-    public void saveUser(User user) {
+    private void saveUpdate(User user) {
         for (Role userRole : user.getRoles()) {
             for (Role dbRole : roleDao.findAllRoles()) {
                 if (dbRole.getAuthority().equals(userRole.getAuthority())) {
@@ -48,6 +47,11 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         }
+    }
+
+    @Override
+    public void saveUser(User user) {
+        saveUpdate(user);
         entityManager.persist(user);
     }
 
@@ -61,13 +65,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        for (Role userRole : user.getRoles()) {
-            for (Role dbRole : roleDao.findAllRoles()) {
-                if (dbRole.getAuthority().equals(userRole.getAuthority())) {
-                    userRole.setId(dbRole.getId());
-                }
-            }
-        }
+        saveUpdate(user);
         entityManager.merge(user);
     }
 
