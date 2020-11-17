@@ -8,6 +8,7 @@ import web.model.Role;
 
 import java.util.Set;
 
+@Transactional
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -18,19 +19,16 @@ public class RoleServiceImpl implements RoleService {
         this.roleDao = roleDao;
     }
 
-    @Transactional
     @Override
     public Set<Role> getRoles(Set<String> role) {
         return roleDao.getRoles(role);
     }
 
-    @Transactional
     @Override
     public Role getRole(String name) {
         return roleDao.getRole(name);
     }
 
-    @Transactional
     @Override
     public Set<Role> findAllRoles() {
         return roleDao.findAllRoles();

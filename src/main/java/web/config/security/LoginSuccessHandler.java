@@ -18,71 +18,17 @@ import java.util.Set;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException {
-//        successHandler(httpServletRequest, httpServletResponse, authentication);
-//        clearAuthenticationAttributes(httpServletRequest);
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_USER")) {
-            httpServletResponse.sendRedirect("/user/user-list_.html");
+            httpServletResponse.sendRedirect("/user/user-list_");
         } else {
-            httpServletResponse.sendRedirect("/admin/user-list.html");
+            httpServletResponse.sendRedirect("/admin/user-list");
         }
     }
-
-
-//    protected void successHandler(HttpServletRequest httpServletRequest,
-//                                  HttpServletResponse httpServletResponse,
-//                                  Authentication authentication) throws IOException {
-//
-//        String targetUrl = determineTargetUrl(authentication);
-//
-//        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, targetUrl);
-//    }
-//
-//    protected String determineTargetUrl(Authentication authentication) {
-//        boolean isUser = false;
-//        boolean isAdmin = false;
-//        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-//        for (GrantedAuthority grantedAuthority : authorities) {
-//            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-//                isUser = true;
-//                break;
-//            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-//                isAdmin = true;
-//                break;
-//            }
-//        }
-//
-//        if (isUser) {
-//            return "user/user-list_.html";
-//        } else if (isAdmin) {
-//            return "admin/user-list.html";
-//        } else {
-//            return "login.html";
-//        }
-//    }
-//
-//    protected void clearAuthenticationAttributes(HttpServletRequest httpServletRequest) {
-//        HttpSession httpSession = httpServletRequest.getSession(false);
-//        if (httpSession == null) {
-//            return;
-//        }
-//        httpSession.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-//    }
-//
-//    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-//        this.redirectStrategy = redirectStrategy;
-//    }
-//
-//    protected RedirectStrategy getRedirectStrategy() {
-//        return redirectStrategy;
-//    }
-
 
 
 }

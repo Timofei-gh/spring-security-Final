@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create user</title>
+    <title>Update user</title>
 </head>
 <body>
 <form action="#" th:action="@{/admin/user-update}" th:object="${users}" method="post">
@@ -16,7 +16,7 @@
     <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
     <br/>
     <label for="password">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="Password">
+    <input type="password" th:field="*{password}" id="password" placeholder="Password">
     <br/>
     <label>
         <select multiple required size="2" th:name="roles" th:field="*{roles}">

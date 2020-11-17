@@ -5,62 +5,75 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.Role;
 import web.model.User;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
+
     @Override
     public User findByLastName(String lastname) {
         return userDao.findByLastName(lastname);
     }
 
-    @Transactional
+
     @Override
     public User findById(Long id) {
         return userDao.findById(id);
     }
 
-    @Transactional
+
     @Override
     public List<User> findAll() {
         return userDao.findAll();
     }
 
-    @Transactional
+
     @Override
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
 
-    @Transactional
+
     @Override
     public void deleteById(Long id) {
         userDao.deleteById(id);
     }
 
-    @Transactional
     @Override
     public void updateUser(User user) {
+        if (user.getPassword().equals("")) {
+            user.setPassword(userDao.findById(user.getId()).getPassword());
+        } else {
+            if (!passwordEncoder.matches(passwordEncoder.encode(user.getPassword()), userDao.findById(user.getId()).getPassword())) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+        }
         userDao.updateUser(user);
     }
 
-    @Transactional
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = findByLastName(s);
